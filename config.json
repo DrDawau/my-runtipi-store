@@ -1,0 +1,20 @@
+{
+  "id": "onlyoffice",
+  "name": "OnlyOffice Docs",
+  "version": "8.0.0",
+  "port": 80,
+  "categories": ["productivity", "office"],
+  "description": "ONLYOFFICE Docs Community Edition.",
+  "shortDescription": "Online office suite",
+  "author": "ONLYOFFICE",
+  "source": "https://github.com/ONLYOFFICE/DocumentServer",
+  "formFields": [
+    {
+      "type": "random",
+      "name": "jwt_secret",
+      "label": "JWT Secret",
+      "description": "Secret key for securing the connection (generated automatically)",
+      "required": true
+    }
+  ]
+}
