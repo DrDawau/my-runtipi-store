@@ -3,12 +3,13 @@
   "name": "OnlyOffice Docs",
   "version": "8.0.0",
   "port": 80,
-  "categories": ["productivity", "office"],
+  "categories": ["utilities"],
   "description": "ONLYOFFICE Docs Community Edition.",
-  "shortDescription": "Online office suite",
+  "short_desc": "Online office suite",
   "author": "ONLYOFFICE",
   "source": "https://github.com/ONLYOFFICE/DocumentServer",
-  "formFields": [
+  "dynamic": true,
+  "form_fields": [
     {
       "type": "random",
       "name": "jwt_secret",
