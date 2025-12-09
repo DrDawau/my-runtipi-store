@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "onlyoffice",
+      "image": "onlyoffice/documentserver:latest",
+      "internalPort": 80,
+      "isMain": true,
+      "depends_on": ["onlyoffice-db", "onlyoffice-rabbitmq"],
+      "environment": [
+        { "key": "DB_TYPE", "value": "postgres" },
+        { "key": "DB_HOST", "value": "onlyoffice-db" },
+        { "key": "DB_PORT", "value": "5432" },
+        { "key": "DB_NAME", "value": "onlyoffice" },
+        { "key": "DB_USER", "value": "onlyoffice" },
+        { "key": "DB_PASSWORD", "value": "onlyoffice" },
+        { "key": "AMQP_URI", "value": "amqp://guest:guest@onlyoffice-rabbitmq" },
+        { "key": "JWT_ENABLED", "value": "true" },
+        { "key": "JWT_SECRET", "value": "${APP_JWT_SECRET}" },
+        { "key": "JWT_HEADER", "value": "Authorization" },
+        { "key": "JWT_IN_BODY", "value": "true" },
+        { "key": "USE_UNAUTHORIZED_STORAGE", "value": "true" }
+      ],
+      "volumes": [
+        { "source": "${APP_DATA_DIR}/data", "target": "/var/www/onlyoffice/Data", "type": "bind" },
+        { "source": "${APP_DATA_DIR}/logs", "target": "/var/log/onlyoffice", "type": "bind" },
+        { "source": "${APP_DATA_DIR}/cache", "target": "/var/lib/onlyoffice/documentserver/App_Data/cache/files", "type": "bind" }
+      ]
+    },
+    {
+      "name": "onlyoffice-db",
+      "image": "postgres:14-alpine",
+      "environment": [
+        { "key": "POSTGRES_DB", "value": "onlyoffice" },
+        { "key": "POSTGRES_USER", "value": "onlyoffice" },
+        { "key": "POSTGRES_PASSWORD", "value": "onlyoffice" }
+      ],
+      "volumes": [
+        { "source": "${APP_DATA_DIR}/postgres", "target": "/var/lib/postgresql/data", "type": "bind" }
+      ]
+    },
+    {
+      "name": "onlyoffice-rabbitmq",
+      "image": "rabbitmq:3.9-alpine"
+    }
+  ]
+}
